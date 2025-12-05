@@ -121,6 +121,7 @@ class SudokuUI:
 
         self.cells[row][col].focus_set()
 
+
     def on_number_click(self, number):
         """Обработка нажатия цифры"""
         if self.selected_cell:
@@ -184,6 +185,14 @@ class SudokuUI:
                     if (i // 3 + j // 3) % 2 == 0:
                         normal_bg = "#f5f5f5"
                     self.cells[i][j].config(bg=normal_bg)
+
+    def set_cell_state(self, row, col, state):
+        """Устанавливает состояние ячейки"""
+        cell = self.cells[row][col]
+        if state == 'disabled':
+            cell.config(state='disabled')
+        elif state == 'normal':
+            cell.config(state='normal')
 
 
 if __name__ == "__main__":
