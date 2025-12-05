@@ -1,4 +1,45 @@
 import random
+import sys
+
+
+class SudokuError(Exception):
+    """Базовое исключение для ошибок Судоку"""
+    pass
+
+
+class GenerationError(SudokuError):
+    """Ошибка генерации"""
+    pass
+
+
+def create_puzzle(self, difficulty='medium'):
+    """Создает головоломку заданной сложности"""
+    if difficulty not in ['easy', 'medium', 'hard']:
+        raise ValueError(f"Недопустимая сложность: {difficulty}")
+
+    try:
+        self.generate_full_board()
+        if not self.is_valid_board(self.board):
+            raise GenerationError("Сгенерирована невалидная доска")
+
+        solution = [row[:] for row in self.board]
+        # ... остальной код
+
+    except Exception as e:
+        raise GenerationError(f"Ошибка при создании головоломки: {str(e)}")
+
+
+def is_valid_board(self, board):
+    """Проверяет валидность доски"""
+    for i in range(9):
+        for j in range(9):
+            if board[i][j] != 0:
+                num = board[i][j]
+                board[i][j] = 0
+                if not self.is_valid(i, j, num):
+                    return False
+                board[i][j] = num
+    return True
 
 
 class SudokuGenerator:
